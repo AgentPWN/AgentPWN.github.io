@@ -1,42 +1,371 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="My Personal Blog">
-    <title>Home | My Personal Blog</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rupak Banerjee · Software Engineer & Security Researcher</title>
+  <meta name="description" content="Rupak Banerjee, software engineer and security researcher. I build software and break it. Projects, experience, and writing." />
+  <meta name="color-scheme" content="dark" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Rupak Banerjee · Software Engineer & Security Researcher" />
+  <meta property="og:description" content="Software engineering, threat research, and web application security." />
+  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◆</text></svg>" />
 </head>
 <body>
-    <header>
-        <h1>Welcome to My Blog</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+  <!-- Ambient background -->
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"></div>
 
-    <main>
-        <section class="intro">
-            <h2>Latest Posts</h2>
-            <article>
-                <h3>My First Blog Post</h3>
-                <p>This is a brief introduction to my first blog post. Stay tuned for more!</p>
-                <a href="#">Read more...</a>
-            </article>
-            <article>
-                <h3>Traveling the World</h3>
-                <p>Exploring new countries and cultures is one of my favorite activities. Here's what I've learned...</p>
-                <a href="#">Read more...</a>
-            </article>
-        </section>
-    </main>
+  <!-- Nav -->
+  <header class="nav" id="nav">
+    <div class="container nav__inner">
+      <a href="#top" class="brand">
+        <span class="brand__mark">◆</span>
+        <span class="brand__name">Rupak Banerjee</span>
+      </a>
+      <nav class="nav__links" aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#skills">Skills</a>
+        <a href="#blog">Blog</a>
+        <a href="#contact" class="nav__cta">Contact</a>
+      </nav>
+      <button class="nav__toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
 
-    <footer>
-        <p>&copy; 2025 My Personal Blog. All Rights Reserved.</p>
-    </footer>
+  <main id="top">
+    <!-- Hero -->
+    <section class="hero container">
+      <p class="hero__eyebrow reveal">
+        <span class="dot"></span> Open to 2026 roles · software engineering &amp; security
+      </p>
+      <h1 class="hero__title reveal">
+        Software Engineer<br />
+        <span class="grad">&amp; Security Researcher.</span>
+      </h1>
+      <p class="hero__lead reveal">
+        I'm Rupak. I build software and break it. I ship real systems in Go, Python, and
+        JavaScript, and I hunt vulnerabilities across web apps and infrastructure. Two sides
+        of the same craft: understanding how things work well enough to make them work better.
+      </p>
+      <div class="hero__actions reveal">
+        <a href="#projects" class="btn btn--primary">View work</a>
+        <a href="#contact" class="btn btn--ghost">Get in touch</a>
+      </div>
+      <ul class="hero__stats reveal">
+        <li><strong data-count="5">5+</strong><span>projects shipped</span></li>
+        <li><strong data-count="30">30+</strong><span>vulnerabilities disclosed</span></li>
+        <li><strong data-count="3">3</strong><span>CTF &amp; competition wins</span></li>
+      </ul>
+    </section>
+
+    <!-- About -->
+    <section class="section container" id="about">
+      <div class="section__head reveal">
+        <span class="section__index">01</span>
+        <h2 class="section__title">About</h2>
+      </div>
+      <div class="about">
+        <div class="about__body reveal">
+          <p>
+            I'm a software engineer and security researcher, and I care about both equally.
+            On the building side, I've shipped a stack of projects: concurrent systems in Go,
+            a WebSocket server, a full-stack 3D training platform, and an MCP alert-intelligence
+            engine. The fastest way to get good at engineering is to keep building real,
+            non-trivial things and sweat the details: concurrency, reliability, clean APIs, and
+            code that holds up.
+          </p>
+          <p>
+            On the security side, I work in vulnerability assessment, web application security,
+            CTFs, and bug bounty hunting, finding and exploiting flaws, then reporting them
+            responsibly. Along the way I've won the NCIIPC Pentathon 2025 with team Cryptonite
+            (₹2,00,000), the Indomitus CTF 2025 run by Schneider Electric &amp; Nvidia
+            (₹35,000), and a ₹20,000 bug bounty for critical findings.
+          </p>
+          <p>
+            I'm open to roles on either side, software engineering or security, and I'm at my
+            best where the two meet.
+          </p>
+        </div>
+        <aside class="about__card reveal">
+          <h3>At a glance</h3>
+          <ul>
+            <li><span>Focus</span> Software engineering &amp; security</li>
+            <li><span>Stack</span> Go · Python · C · JavaScript</li>
+            <li><span>Education</span> BTech CSE (AIML), MIT Manipal</li>
+            <li><span>Location</span> Hyderabad, India</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section class="section container" id="projects">
+      <div class="section__head reveal">
+        <span class="section__index">02</span>
+        <h2 class="section__title">Projects</h2>
+      </div>
+      <div class="grid grid--projects">
+        <article class="card reveal">
+          <div class="card__top">
+            <span class="card__tag">Red team</span>
+            <a class="card__link" href="https://github.com/AgentPWN" target="_blank" rel="noopener" aria-label="Open on GitHub">↗</a>
+          </div>
+          <h3 class="card__title">Red Team Training Platform</h3>
+          <p class="card__desc">
+            Interactive training platform with a ThreeJS 3D city where each building launches
+            a security challenge. Express.js backend provisions isolated, Docker-based
+            vulnerable apps with persistent per-user progress.
+          </p>
+          <ul class="card__stack">
+            <li>ThreeJS</li><li>Express.js</li><li>Docker</li><li>Flask</li><li>NGINX</li>
+          </ul>
+        </article>
+
+        <article class="card reveal">
+          <div class="card__top">
+            <span class="card__tag">Systems · Go</span>
+            <a class="card__link" href="https://github.com/AgentPWN" target="_blank" rel="noopener" aria-label="Open on GitHub">↗</a>
+          </div>
+          <h3 class="card__title">Load-Balanced Worker System</h3>
+          <p class="card__desc">
+            Concurrent, load-balanced worker system in Go using goroutines and channels, with
+            dynamic health simulation, automatic failover, and race-free state via sync.Mutex.
+          </p>
+          <ul class="card__stack">
+            <li>Go</li><li>net/http</li><li>goroutines</li><li>channels</li>
+          </ul>
+        </article>
+
+        <article class="card reveal">
+          <div class="card__top">
+            <span class="card__tag">AI · Security</span>
+            <a class="card__link" href="https://github.com/AgentPWN" target="_blank" rel="noopener" aria-label="Open on GitHub">↗</a>
+          </div>
+          <h3 class="card__title">MCP Alert Intelligence Engine</h3>
+          <p class="card__desc">
+            An MCP server that ingests high-volume alert data from a security scanner, with a
+            normalization &amp; summarization pipeline that cuts token usage and answers
+            free-form queries from indexed alert intelligence.
+          </p>
+          <ul class="card__stack">
+            <li>MCP</li><li>Python</li><li>LLM</li>
+          </ul>
+        </article>
+
+        <article class="card reveal">
+          <div class="card__top">
+            <span class="card__tag">Threat intel · Go</span>
+            <a class="card__link" href="https://github.com/AgentPWN" target="_blank" rel="noopener" aria-label="Open on GitHub">↗</a>
+          </div>
+          <h3 class="card__title">Dark Web Data Scraper</h3>
+          <p class="card__desc">
+            Go scraper that searches for specified names across multiple dark-web forums,
+            crawling dynamic sources and generating HTML reports for proactive threat
+            monitoring.
+          </p>
+          <ul class="card__stack">
+            <li>Go</li><li>chromedp</li><li>MongoDB</li><li>net/http</li>
+          </ul>
+        </article>
+
+        <article class="card reveal">
+          <div class="card__top">
+            <span class="card__tag">Systems · Go</span>
+            <a class="card__link" href="https://github.com/AgentPWN" target="_blank" rel="noopener" aria-label="Open on GitHub">↗</a>
+          </div>
+          <h3 class="card__title">High-Performance WebSocket Server</h3>
+          <p class="card__desc">
+            Reliable, low-latency WebSocket server in Go with scalable connection management,
+            full lifecycle handling (auth, broadcast, graceful shutdown), and a Makefile-driven
+            build/deploy flow.
+          </p>
+          <ul class="card__stack">
+            <li>Go</li><li>WebSocket</li><li>goroutines</li><li>Makefile</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- Experience -->
+    <section class="section container" id="experience">
+      <div class="section__head reveal">
+        <span class="section__index">03</span>
+        <h2 class="section__title">Experience</h2>
+      </div>
+      <ol class="timeline">
+        <li class="timeline__item reveal">
+          <div class="timeline__meta">
+            <span class="timeline__year">Jan 2026 – Present</span>
+          </div>
+          <div class="timeline__body">
+            <h3>Security Researcher</h3>
+            <p class="timeline__org">BreachX · Bangalore, Karnataka</p>
+            <p>
+              Curate high-quality Semgrep SAST datasets to fine-tune models, and built an
+              automated dark-web monitoring &amp; threat-intelligence platform that scrapes
+              threat-actor forums, marketplaces, and leak sites for client data exposure.
+              Conducted pentests across company domains, responsibly reporting 10+ vulnerabilities
+              spanning broken access control, auth flaws, and misconfigurations.
+            </p>
+          </div>
+        </li>
+        <li class="timeline__item reveal">
+          <div class="timeline__meta">
+            <span class="timeline__year">Jan 2025 – Oct 2025</span>
+          </div>
+          <div class="timeline__body">
+            <h3>Cloud Security Research Intern</h3>
+            <p class="timeline__org">CloudDefense.ai · Remote</p>
+            <p>
+              Designed a DAST scanner pipeline built on OWASP ZAP, Nutch, Subfinder, and Nuclei.
+              Ran security testing that surfaced 20+ bugs leading to privilege escalation,
+              account takeover, and broken access control.
+            </p>
+          </div>
+        </li>
+        <li class="timeline__item reveal">
+          <div class="timeline__meta">
+            <span class="timeline__year">2022 – 2026</span>
+          </div>
+          <div class="timeline__body">
+            <h3>BTech, Computer Science (AIML)</h3>
+            <p class="timeline__org">Manipal Institute of Technology · GPA 7.71/10</p>
+            <p>
+              Coursework and independent research across AI/ML and security. Active in CTFs
+              and competitive security with team Cryptonite.
+            </p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- Skills -->
+    <section class="section container" id="skills">
+      <div class="section__head reveal">
+        <span class="section__index">04</span>
+        <h2 class="section__title">Skills</h2>
+      </div>
+      <div class="skills reveal">
+        <div class="skills__group">
+          <h3>Languages</h3>
+          <ul>
+            <li>Go</li><li>Python</li><li>C</li>
+            <li>Java</li><li>JavaScript</li><li>SQL</li>
+          </ul>
+        </div>
+        <div class="skills__group">
+          <h3>Backend &amp; Web</h3>
+          <ul>
+            <li>Flask</li><li>Django</li><li>Express.js</li>
+            <li>MongoDB</li><li>ThreeJS</li><li>HTML/CSS</li>
+          </ul>
+        </div>
+        <div class="skills__group">
+          <h3>Platforms &amp; DevOps</h3>
+          <ul>
+            <li>Linux</li><li>Docker</li><li>AWS</li>
+            <li>Azure</li><li>GCP</li>
+          </ul>
+        </div>
+        <div class="skills__group">
+          <h3>Offensive Security</h3>
+          <ul>
+            <li>Web Pentesting</li><li>Red Teaming</li><li>Reverse Engineering</li>
+            <li>Malware Analysis</li><li>Threat Intelligence</li><li>Bug Bounty</li>
+          </ul>
+        </div>
+        <div class="skills__group">
+          <h3>Security Tooling</h3>
+          <ul>
+            <li>Burp Suite</li><li>OWASP ZAP</li><li>Semgrep</li>
+            <li>Nuclei</li><li>Subfinder</li><li>GDB</li>
+          </ul>
+        </div>
+        <div class="skills__group">
+          <h3>AI / ML</h3>
+          <ul>
+            <li>LLMs</li><li>Neural Networks</li><li>MCP</li>
+            <li>Dataset Curation</li><li>Model Fine-tuning</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Blog -->
+    <section class="section container" id="blog">
+      <div class="section__head reveal">
+        <span class="section__index">05</span>
+        <h2 class="section__title">Blog</h2>
+      </div>
+      <div class="grid grid--blog">
+        <a class="post reveal" href="blog/example-post.html">
+          <span class="post__date">Coming soon</span>
+          <h3 class="post__title">Inside a dark-web threat-intel scraper</h3>
+          <p class="post__excerpt">
+            How I built a Go crawler to track exposed client data across forums and leak
+            sites, and what it taught me about signal vs. noise.
+          </p>
+          <span class="post__more">Read →</span>
+        </a>
+        <a class="post reveal" href="blog/example-post.html">
+          <span class="post__date">Coming soon</span>
+          <h3 class="post__title">Concurrency in Go, the hard way</h3>
+          <p class="post__excerpt">
+            What I learned building a load-balanced worker system and a WebSocket server:
+            goroutines, channels, failover, and avoiding race conditions.
+          </p>
+          <span class="post__more">Read →</span>
+        </a>
+        <a class="post reveal" href="blog/example-post.html">
+          <span class="post__date">Coming soon</span>
+          <h3 class="post__title">Notes from winning NCIIPC Pentathon</h3>
+          <p class="post__excerpt">
+            Lessons from competing (and winning) with team Cryptonite: prep, tooling, and
+            mindset under time pressure.
+          </p>
+          <span class="post__more">Read →</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="section container contact" id="contact">
+      <div class="contact__inner reveal">
+        <span class="section__index">06</span>
+        <h2 class="contact__title">Let's build<br /><span class="grad">something great.</span></h2>
+        <p class="contact__lead">
+          Open to software engineering and security roles alike, plus interesting projects
+          and collaborations. If you're hiring for either, let's talk.
+        </p>
+        <div class="contact__actions">
+          <a class="btn btn--primary" href="mailto:rupakbanerjee170@gmail.com">Email me</a>
+          <a class="btn btn--ghost" href="https://github.com/AgentPWN" target="_blank" rel="noopener">GitHub</a>
+          <a class="btn btn--ghost" href="https://www.linkedin.com/in/rupak-banerjee-61509727b" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <span>© <span id="year"></span> Rupak Banerjee</span>
+      <a href="#top" class="footer__top">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
