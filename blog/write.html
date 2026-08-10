@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Writing Studio · Rupak Banerjee</title>
+  <meta name="color-scheme" content="dark" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="post.css" />
+  <link rel="stylesheet" href="blog.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◆</text></svg>" />
+</head>
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"></div>
+
+  <header class="nav is-scrolled">
+    <div class="container nav__inner">
+      <a href="../index.html" class="brand">
+        <span class="brand__mark">◆</span>
+        <span class="brand__name">Rupak Banerjee</span>
+      </a>
+      <nav class="nav__links" aria-label="Primary">
+        <a href="index.html">Blog</a>
+        <a href="../index.html">Home</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container studio">
+    <header class="studio__head">
+      <h1>Writing Studio</h1>
+      <p>
+        Type in Markdown on the left and watch it format on the right. When you're happy,
+        download the post file and copy the manifest line. Nothing is uploaded anywhere; this
+        runs entirely in your browser.
+      </p>
+    </header>
+
+    <div class="studio__meta">
+      <label>Title
+        <input id="fTitle" type="text" placeholder="My First Blog" />
+      </label>
+      <label>Date
+        <input id="fDate" type="date" />
+      </label>
+      <label>Slug (file name)
+        <input id="fSlug" type="text" placeholder="my-first-blog" />
+      </label>
+    </div>
+
+    <div class="editor">
+      <div class="editor__pane">
+        <div class="editor__label">Markdown</div>
+        <textarea id="fBody" spellcheck="true" placeholder="Write your post here...
+
+## A heading
+
+A paragraph with **bold**, *italic*, `code`, and a [link](https://example.com).
+
+- a list item
+- another one
+
+> A quote worth remembering."></textarea>
+      </div>
+      <div class="editor__pane">
+        <div class="editor__label">Preview</div>
+        <div class="editor__preview prose" id="preview"></div>
+      </div>
+    </div>
+
+    <div class="studio__actions">
+      <button class="btn btn--primary" id="btnDownload">Download post file</button>
+      <button class="btn btn--ghost" id="btnCopyEntry">Copy manifest line</button>
+      <span class="studio__hint" id="hint"></span>
+    </div>
+
+    <details class="studio__how">
+      <summary>How to publish a post</summary>
+      <ol>
+        <li>Fill in the title, date, and slug, then write your post above.</li>
+        <li>Click <strong>Download post file</strong>. Save the downloaded <code>&lt;slug&gt;.md</code> into <code>blog/posts/</code>.</li>
+        <li>Click <strong>Copy manifest line</strong>, then paste it as a new entry at the top of the array in <code>blog/posts.json</code>.</li>
+        <li>Commit and push. Your post appears at <code>/blog/</code> automatically.</li>
+      </ol>
+    </details>
+
+    <div class="studio__entry">
+      <div class="editor__label">Manifest entry for posts.json</div>
+      <pre id="entry"></pre>
+    </div>
+  </main>
+
+  <script src="blog.js"></script>
+  <script>
+    const el = (id) => document.getElementById(id);
+    const fTitle = el("fTitle");
+    const fDate = el("fDate");
+    const fSlug = el("fSlug");
+    const fBody = el("fBody");
+    const preview = el("preview");
+    const entry = el("entry");
+    const hint = el("hint");
+
+    let slugTouched = false;
+    fSlug.addEventListener("input", () => (slugTouched = true));
+
+    function today() {
+      const d = new Date();
+      const p = (n) => String(n).padStart(2, "0");
+      return d.getFullYear() + "-" + p(d.getMonth() + 1) + "-" + p(d.getDate());
+    }
+    fDate.value = today();
+
+    function render() {
+      if (!slugTouched) fSlug.value = slugify(fTitle.value || "");
+      preview.innerHTML = mdToHtml(fBody.value || "");
+      const text = mdToText(fBody.value || "");
+      const excerpt = text.length > 160 ? text.slice(0, 157).trimEnd() + "..." : text;
+      const obj = {
+        slug: fSlug.value || "untitled",
+        title: fTitle.value || "Untitled",
+        date: fDate.value || today(),
+        excerpt: excerpt,
+      };
+      entry.textContent = JSON.stringify(obj, null, 2) + ",";
+    }
+
+    [fTitle, fDate, fSlug, fBody].forEach((n) => n.addEventListener("input", render));
+    render();
+
+    function flash(msg) {
+      hint.textContent = msg;
+      setTimeout(() => (hint.textContent = ""), 2500);
+    }
+
+    el("btnDownload").addEventListener("click", () => {
+      const slug = fSlug.value || "untitled";
+      const blob = new Blob([fBody.value], { type: "text/markdown" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = slug + ".md";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(a.href);
+      flash("Saved " + slug + ".md — put it in blog/posts/");
+    });
+
+    el("btnCopyEntry").addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(entry.textContent);
+        flash("Manifest line copied. Paste it into blog/posts.json");
+      } catch (e) {
+        flash("Copy failed — select the text below manually.");
+      }
+    });
+  </script>
+</body>
+</html>

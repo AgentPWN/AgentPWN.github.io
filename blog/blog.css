@@ -1,0 +1,209 @@
+.blog-index {
+  max-width: 760px;
+  padding-top: 40px;
+  padding-bottom: 80px;
+}
+.blog-index__head {
+  margin: 28px 0 40px;
+}
+.blog-index__head h1 {
+  font-size: clamp(2.2rem, 6vw, 3.2rem);
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.blog-index__head p {
+  color: var(--text-dim);
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.post-list {
+  display: grid;
+  gap: 16px;
+}
+.post-list__empty {
+  color: var(--text-faint);
+}
+.post-item {
+  display: block;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px 26px;
+  transition: transform 0.3s var(--ease), border-color 0.3s var(--ease), background 0.3s var(--ease);
+}
+.post-item:hover {
+  transform: translateY(-3px);
+  border-color: var(--text-faint);
+  background: var(--surface-2);
+}
+.post-item__date {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--text-faint);
+}
+.post-item__title {
+  margin: 8px 0 8px;
+  font-size: 1.35rem;
+  letter-spacing: -0.01em;
+}
+.post-item__excerpt {
+  margin: 0 0 14px;
+  color: var(--text-dim);
+  font-size: 0.98rem;
+}
+.post-item__more {
+  color: var(--accent);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.studio {
+  max-width: 1100px;
+  padding-top: 40px;
+  padding-bottom: 80px;
+}
+.studio__head {
+  margin: 28px 0 28px;
+}
+.studio__head h1 {
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  letter-spacing: -0.02em;
+  margin: 0 0 10px;
+}
+.studio__head p {
+  color: var(--text-dim);
+  max-width: 720px;
+  margin: 0;
+}
+
+.studio__meta {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1.5fr;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.studio__meta label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-faint);
+}
+.studio__meta input {
+  font-family: var(--font);
+  font-size: 0.95rem;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  text-transform: none;
+  letter-spacing: normal;
+}
+.studio__meta input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.editor {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  min-height: 420px;
+}
+.editor__pane {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.editor__label {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-faint);
+  margin-bottom: 8px;
+}
+.editor textarea {
+  flex: 1;
+  min-height: 420px;
+  resize: vertical;
+  font-family: var(--mono);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 18px;
+}
+.editor textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+.editor__preview {
+  flex: 1;
+  overflow-y: auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 18px 22px;
+  font-size: 1rem;
+}
+.editor__preview.prose p:first-child { margin-top: 0; }
+
+.studio__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  margin: 22px 0 8px;
+}
+.studio__actions button { border: 1px solid transparent; }
+.studio__hint {
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  color: var(--accent);
+}
+
+.studio__how {
+  margin: 18px 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px 20px;
+}
+.studio__how summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+.studio__how ol {
+  margin: 14px 0 4px;
+  padding-left: 20px;
+  color: var(--text-dim);
+}
+.studio__how li { margin-bottom: 8px; }
+
+.studio__entry {
+  margin-top: 12px;
+}
+.studio__entry pre {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px 18px;
+  overflow-x: auto;
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  margin: 0;
+}
+
+@media (max-width: 820px) {
+  .studio__meta { grid-template-columns: 1fr; }
+  .editor { grid-template-columns: 1fr; }
+}
