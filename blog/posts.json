@@ -1,5 +1,11 @@
 [
   {
+    "slug": "m1-improper-credential-usage",
+    "title": "M1: Improper Credential Usage",
+    "date": "2026-08-10",
+    "excerpt": "This vuln is pretty simple. It occurs when : credentials are left in the application source code credentials are intercepted while in transit between app and..."
+  },
+  {
   "slug": "mobile-pentesting",
   "title": "Mobile Pentesting",
   "date": "2026-08-10",
