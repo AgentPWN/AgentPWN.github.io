@@ -1,14 +1,14 @@
 [
   {
+  "slug": "mobile-pentesting",
+  "title": "Mobile Pentesting",
+  "date": "2026-08-10",
+  "excerpt": "It's been while I have started learning something in the pentesting sphere that I am completely clueless about. I have forgotten what it feels like to start..."
+  },
+  {
     "slug": "my-first-blog",
     "title": "My First Blog",
     "date": "2026-08-10",
     "excerpt": "Why I'm starting this blog: to stay focused, learn in a more structured way, and document the process along the way."
-  },
-  {
-    "slug": "mobile-pentesting",
-    "title": "Mobile Pentesting",
-    "date": "2026-08-10",
-    "excerpt": "It's been while I have started learning something in the pentesting sphere that I am completely clueless about. I have forgotten what it feels like to start..."
-  },
+  }
 ]
