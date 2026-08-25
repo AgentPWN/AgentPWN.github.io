@@ -6,7 +6,7 @@ This vuln is pretty simple. It occurs when
 
 Honestly, it would be shocking if the first scenario occured. But I have seen vulns that I would place in the same category. I once found a JWT on a website belonging to large conglomerate that used the secret `secret`. You would think their developers would know better. But oh well. 
 
-The second scenario must have to do with either straight up encryption or using https (also essentially encyrption) or both. 
+The second scenario must have to do with either straight up encryption or using https (also essentially encryption) or both. 
 
 In case of using http instead of https, the risk is obvious. The application makes an api call with credentials and the attacker does a MITM attack. 
 

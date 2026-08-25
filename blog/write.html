@@ -34,11 +34,23 @@
     <header class="studio__head">
       <h1>Writing Studio</h1>
       <p>
-        Type in Markdown on the left and watch it format on the right. When you're happy,
-        download the post file and copy the manifest line. Nothing is uploaded anywhere; this
-        runs entirely in your browser.
+        Type in Markdown on the left and watch it format on the right. Your work autosaves to
+        this browser as a draft, so you can close the tab and pick it up later. When you're
+        happy, download the post file and copy the manifest line. Everything stays on your
+        machine; nothing is uploaded anywhere.
       </p>
     </header>
+
+    <div class="studio__drafts">
+      <label class="studio__drafts-field">Draft
+        <select id="draftSelect">
+          <option value="">New draft</option>
+        </select>
+      </label>
+      <button class="btn btn--ghost" id="btnNewDraft" type="button">New draft</button>
+      <button class="btn btn--ghost" id="btnDeleteDraft" type="button">Delete</button>
+      <span class="studio__autosave" id="autosave"></span>
+    </div>
 
     <div class="studio__meta">
       <label>Title
@@ -94,8 +106,14 @@ A paragraph with **bold**, *italic*, `code`, and a [link](https://example.com).
     const preview = el("preview");
     const entry = el("entry");
     const hint = el("hint");
+    const autosave = el("autosave");
+    const draftSelect = el("draftSelect");
 
+    const DRAFTS_KEY = "blog_drafts_v1";
+    const CURRENT_KEY = "blog_current_draft_v1";
+    let currentId = null;
     let slugTouched = false;
+
     fSlug.addEventListener("input", () => (slugTouched = true));
 
     function today() {
@@ -103,7 +121,26 @@ A paragraph with **bold**, *italic*, `code`, and a [link](https://example.com).
       const p = (n) => String(n).padStart(2, "0");
       return d.getFullYear() + "-" + p(d.getMonth() + 1) + "-" + p(d.getDate());
     }
-    fDate.value = today();
+
+    function fmtTime(iso) {
+      const d = iso ? new Date(iso) : new Date();
+      const p = (n) => String(n).padStart(2, "0");
+      return p(d.getHours()) + ":" + p(d.getMinutes());
+    }
+
+    function loadDrafts() {
+      try {
+        return JSON.parse(localStorage.getItem(DRAFTS_KEY)) || {};
+      } catch (e) {
+        return {};
+      }
+    }
+    function saveDrafts(d) {
+      localStorage.setItem(DRAFTS_KEY, JSON.stringify(d));
+    }
+    function isEmpty() {
+      return !fTitle.value.trim() && !fBody.value.trim();
+    }
 
     function render() {
       if (!slugTouched) fSlug.value = slugify(fTitle.value || "");
@@ -119,8 +156,107 @@ A paragraph with **bold**, *italic*, `code`, and a [link](https://example.com).
       entry.textContent = JSON.stringify(obj, null, 2) + ",";
     }
 
-    [fTitle, fDate, fSlug, fBody].forEach((n) => n.addEventListener("input", render));
-    render();
+    function writeStorage() {
+      if (isEmpty()) return;
+      if (!currentId) currentId = "d" + Date.now();
+      const drafts = loadDrafts();
+      drafts[currentId] = {
+        id: currentId,
+        title: fTitle.value,
+        date: fDate.value,
+        slug: fSlug.value,
+        body: fBody.value,
+        updated: new Date().toISOString(),
+      };
+      saveDrafts(drafts);
+      localStorage.setItem(CURRENT_KEY, currentId);
+    }
+
+    function refreshDraftList() {
+      const drafts = loadDrafts();
+      const ids = Object.keys(drafts).sort((a, b) =>
+        drafts[a].updated < drafts[b].updated ? 1 : -1
+      );
+      draftSelect.innerHTML =
+        '<option value="">New draft</option>' +
+        ids
+          .map((id) => {
+            const d = drafts[id];
+            const name = d.title && d.title.trim() ? d.title : "Untitled";
+            return '<option value="' + id + '">' + escapeHtml(name + " · " + fmtTime(d.updated)) + "</option>";
+          })
+          .join("");
+      draftSelect.value = currentId || "";
+    }
+
+    function markSaved() {
+      autosave.textContent = "Draft saved · " + fmtTime();
+    }
+
+    let saveTimer;
+    function onEdit() {
+      render();
+      clearTimeout(saveTimer);
+      saveTimer = setTimeout(() => {
+        writeStorage();
+        refreshDraftList();
+        if (currentId) markSaved();
+      }, 600);
+    }
+
+    [fTitle, fDate, fSlug, fBody].forEach((n) => n.addEventListener("input", onEdit));
+
+    function loadDraft(id) {
+      const drafts = loadDrafts();
+      const d = drafts[id];
+      if (!d) return;
+      currentId = id;
+      localStorage.setItem(CURRENT_KEY, id);
+      fTitle.value = d.title || "";
+      fDate.value = d.date || today();
+      fSlug.value = d.slug || "";
+      slugTouched = !!(d.slug && d.slug.trim());
+      fBody.value = d.body || "";
+      render();
+      refreshDraftList();
+      markSaved();
+    }
+
+    function newDraft() {
+      currentId = null;
+      localStorage.removeItem(CURRENT_KEY);
+      fTitle.value = "";
+      fSlug.value = "";
+      fBody.value = "";
+      fDate.value = today();
+      slugTouched = false;
+      render();
+      refreshDraftList();
+      autosave.textContent = "";
+      fTitle.focus();
+    }
+
+    draftSelect.addEventListener("change", () => {
+      const id = draftSelect.value;
+      if (id) loadDraft(id);
+      else newDraft();
+    });
+
+    el("btnNewDraft").addEventListener("click", newDraft);
+
+    el("btnDeleteDraft").addEventListener("click", () => {
+      if (!currentId) {
+        newDraft();
+        return;
+      }
+      const drafts = loadDrafts();
+      delete drafts[currentId];
+      saveDrafts(drafts);
+      newDraft();
+      flash("Draft deleted");
+    });
+
+    window.addEventListener("beforeunload", writeStorage);
 
     function flash(msg) {
       hint.textContent = msg;
@@ -137,7 +273,8 @@ A paragraph with **bold**, *italic*, `code`, and a [link](https://example.com).
       a.click();
       a.remove();
       URL.revokeObjectURL(a.href);
-      flash("Saved " + slug + ".md — put it in blog/posts/");
+      writeStorage();
+      flash("Saved " + slug + ".md. Put it in blog/posts/");
     });
 
     el("btnCopyEntry").addEventListener("click", async () => {
@@ -145,9 +282,21 @@ A paragraph with **bold**, *italic*, `code`, and a [link](https://example.com).
         await navigator.clipboard.writeText(entry.textContent);
         flash("Manifest line copied. Paste it into blog/posts.json");
       } catch (e) {
-        flash("Copy failed — select the text below manually.");
+        flash("Copy failed. Select the text below manually.");
       }
     });
+
+    fDate.value = today();
+    (function init() {
+      const drafts = loadDrafts();
+      const saved = localStorage.getItem(CURRENT_KEY);
+      if (saved && drafts[saved]) {
+        loadDraft(saved);
+      } else {
+        render();
+        refreshDraftList();
+      }
+    })();
   </script>
 </body>
 </html>
